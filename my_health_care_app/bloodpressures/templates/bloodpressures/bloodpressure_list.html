@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h3>My blood pressure measurements</h3>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Measurement</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Interpretation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for measurement in object_list %}
+                    <tr>
+                        <td><a href="{% url "bloodpressures:detail" measurement.id %}">{{ measurement.systlic }}/{{ measurement.diastolic }}</a></td>
+                        <td>{{ measurement.examination_datetime }}</td>
+                        {% if measurement.systlic < 130 %}
+                            <td style = "color: green; font-weight: bold">OK</td>
+                        {% elif measurement.systolic < 140 %}
+                            <td style = "color: yellow; font-weight: bold">NORMAL</td>
+                        {% elif measurement.systolic > 150 %}
+                            <td style = "color: darkred; font-weight: bold">HIGH</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url "bloodpressures:add" %}" class="btn btn-primary">Add new</a>
+{% endblock %}

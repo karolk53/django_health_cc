@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ object.record_datetime }}</h1>
+    <table class="table" style="table-layout: fixed;">
+        <tr><th>Systolic</th><td>{{ object.systlic }}</td></tr>
+        <tr><th>Notes</th><td style="word-wrap:break-word">{{ object.notes }}</td></tr>
+    </table>
+    <a href="{% url "bloodpressures:update" object.id %}" class="btn btn-primary">Edit</a>
+    <a href="{% url "bloodpressures:delete" object.id %}" class="btn btn-danger">Delete</a>
+{% endblock %}

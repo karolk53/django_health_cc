@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+            <h3>My measurements</h3>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Measurement</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Interpretation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for measurement in object_list %}
+                        <tr>
+                            <td><a href="{% url "glucoses:detail" measurement.id %}">{{ measurement.value }}</a></td>
+                            <td>{{ measurement.record_datetime }}</td>
+                            {% if measurement.value < 100 %}
+                                <td style = "color: green; font-weight: bold">OK</td>
+                            {% elif measurement.value <= 125 %}
+                                <td style = "color: darkorange; font-weight: bold">ELEVATED</td>
+                            {% elif measurement.value > 125 %}
+                                <td style = "color: darkred; font-weight: bold">HIGH</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{% url "glucoses:add" %}" class="btn btn-primary">Add new</a>
+    </div>
+{% endblock %}
