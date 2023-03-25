@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from .models import Glucose
 # Create your views here.
 
-class GlucoseListView(ListView,LoginRequiredMixin):
+class GlucoseListView(LoginRequiredMixin,ListView):
     model = Glucose
 
     def get_queryset(self) -> QuerySet:
@@ -25,7 +25,7 @@ class GlucoseDetialView(LoginRequiredMixin,DetailView):
 glucose_detail_view = GlucoseDetialView.as_view()
 
 
-class GlucoseCreateView(LoginRequiredMixin,CreateView,SuccessMessageMixin):
+class GlucoseCreateView(LoginRequiredMixin,SuccessMessageMixin,CreateView):
     model = Glucose
     fields = ['value','record_datetime','notes']
     success_url = reverse_lazy("glucoses:list")
@@ -46,7 +46,7 @@ class GlucoseCreateView(LoginRequiredMixin,CreateView,SuccessMessageMixin):
 
 glucoses_create_view = GlucoseCreateView.as_view()
 
-class GlucosesDeleteView(SuccessMessageMixin,DeleteView):
+class GlucosesDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     model = Glucose
 
     success_message = "Deleted succesfully!"
@@ -55,9 +55,10 @@ class GlucosesDeleteView(SuccessMessageMixin,DeleteView):
 glucoses_delete_view = GlucosesDeleteView.as_view()
 
 
-class GlucoseUpadteView(SuccessMessageMixin,UpdateView):
+class GlucoseUpadteView(LoginRequiredMixin,SuccessMessageMixin,UpdateView):
     model = Glucose
     fields = ["value","record_datetime","notes"]
+    template_name = "glucoses/glucose_update.html"
     success_message = "Measurement updated."
 
     def get_success_url(self):
