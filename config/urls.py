@@ -16,8 +16,8 @@ urlpatterns = [
     path("users/", include("my_health_care_app.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
-    path("glucoses/",include('my_health_care_app.glucoses.urls')),
-    path("bloodpressuers/",include("my_health_care_app.bloodpressures.urls")),
+    path("glucoses/", include("my_health_care_app.glucoses.urls")),
+    path("bloodpressures/", include("my_health_care_app.bloodpressures.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
